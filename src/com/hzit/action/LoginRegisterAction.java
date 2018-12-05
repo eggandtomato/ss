@@ -22,8 +22,8 @@ public class LoginRegisterAction extends ActionSupport implements ModelDriven<Us
 
 	public String login() {
 		System.out.println(user);
+		ActionContext act = ActionContext.getContext();
 		if ("admin".equals(user.getUname()) && "admin".equals(user.getPassword())) {
-			ActionContext act = ActionContext.getContext();
 			Map<String, Object> app = act.getApplication();
 			Integer counter = (Integer) app.get("counter");
 			counter = counter == null ? 1 : counter + 1;
@@ -33,6 +33,7 @@ public class LoginRegisterAction extends ActionSupport implements ModelDriven<Us
 			System.out.println("counter" + counter);
 			return "login_success";
 		}
+		((HttpServletRequest)act.get(HTTP_REQUEST)).setAttribute("errorInfo", "ÕËºÅ»òÕßÃÜÂë´íÎó£¡");
 		return "login_failure";
 	}
 
